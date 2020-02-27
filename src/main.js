@@ -10,7 +10,7 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = ''//这里写登录数据提交的API根路径
+axios.defaults.baseURL = 'https://lipiao.top/restaurantApi/common/'//这里写登录数据提交的API根路径
 
 new Vue({
   router,

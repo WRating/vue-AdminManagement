@@ -36,47 +36,58 @@ export default {
     return {
       //这是登录表单的数据绑定对象
       loginForm: {
-        username: '',
-        password: ''
+        username: '1111',
+        password: '11111111'
+      },
+      test: {
+        id: 1
       },
       //则是表单的验证规则对象
       loginFormRules: {
         //验证用户名是否合法
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },//blur表示文本框失去焦点的时候触发验证行为
-          { min: 3, max: 10, message: "请输入正确用户名", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' }, //blur表示文本框失去焦点的时候触发验证行为
+          { min: 3, max: 10, message: '请输入正确用户名', trigger: 'blur' }
         ],
         //验证密码是否合法
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
-        ],
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+        ]
       }
-    };
+    }
   },
-  methods:{
+  methods: {
     //点击重置按钮，重置登录表单
-    reset(){
+    reset() {
       // console.log(this)
-      this.$refs.loginFormRef.resetFields();
+      this.$refs.loginFormRef.resetFields()
     },
-    login(){
-      this.$refs.loginFormRef.validate(async valid =>{
-        console.log(valid);
-        if(!valid) return;//验证不通过，直接阻止这次请求
+    login() {
+      this.$refs.loginFormRef.validate(async valid => {
+        console.log(valid)
+        if (!valid) return //验证不通过，直接阻止这次请求
+        //由于目前没有接口，暂时跳过接口请求，在验证通过之后直接执行登录成功，继续往下执行
         //发起http请求
         //第一种方法
         // const result = await this.$http.post('请求路径',this.loginForm);
         // console.log(result);
-
         //第二种，直接获取返回数据的data
-        const {data:res} = await this.$http.post('请求路径',this.loginForm);
-        console.log(res);
+        // const { data: res } = await this.$http.post('queryFoodById', this.test)
+        // console.log(res)
+        // if ('登录不成功') return this.$message.error('登录失败！')
+        this.$message.success('登录成功！')
+        //1. 将登录成功之后的token保存到客户端的sessionStorage中
+        //1.1 项目中除了登陆之外的接口必须在登录之后才能访问
+        //1.2 token只在当前网站打开期间有效，所以将token保存在sessionStorage中
+        // window.sessionStorage.setItem("token",res.data.token);
+        window.sessionStorage.setItem('token', this.test.id) //暂时先将自己写的id作为token测试
+        //2. 通过编程式导航跳转到后台主页，路由地址是/home
+        this.$router.push('/home')
       })
     }
   }
-
-};
+}
 </script>
 <style lang="less" scoped>
 .login_container {
