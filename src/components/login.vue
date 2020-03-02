@@ -19,7 +19,7 @@
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password"></el-input>
+          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password" show-password></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -36,13 +36,18 @@ export default {
     return {
       //这是登录表单的数据绑定对象
       loginForm: {
-        username: '1111',
-        password: '11111111'
+        // username: '11111',
+        // password: '11111',
+        // userKind:2
+        // username: 'XXXXX',
+        // password: 'xxxxxxxxxx'
+        username: '',
+        password: ''
       },
       test: {
         id: 1
       },
-      //则是表单的验证规则对象
+      //这是表单的验证规则对象
       loginFormRules: {
         //验证用户名是否合法
         username: [
@@ -52,7 +57,7 @@ export default {
         //验证密码是否合法
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+          { min: 3, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
     }
@@ -73,10 +78,14 @@ export default {
         // const result = await this.$http.post('请求路径',this.loginForm);
         // console.log(result);
         //第二种，直接获取返回数据的data
-        // const { data: res } = await this.$http.post('queryFoodById', this.test)
-        // console.log(res)
-        // if ('登录不成功') return this.$message.error('登录失败！')
-        this.$message.success('登录成功！')
+        const { data: res } = await this.$axios.post(
+          'login.php',
+          this.$qs.stringify(this.loginForm)
+        )
+        console.log(res)
+        // if (res.status!==200) return this.$message.error('登录失败！')
+
+        // this.$message.success('登录成功！')
         //1. 将登录成功之后的token保存到客户端的sessionStorage中
         //1.1 项目中除了登陆之外的接口必须在登录之后才能访问
         //1.2 token只在当前网站打开期间有效，所以将token保存在sessionStorage中
