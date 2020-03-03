@@ -39,10 +39,10 @@ export default {
         // username: '11111',
         // password: '11111',
         // userKind:2
-        // username: 'XXXXX',
-        // password: 'xxxxxxxxxx'
-        username: '',
-        password: ''
+        username: 'XXXXX',
+        password: 'xxxxxxxxxx'
+        // username: '',
+        // password: ''
       },
       test: {
         id: 1
@@ -79,7 +79,7 @@ export default {
         // console.log(result);
         //第二种，直接获取返回数据的data
         const { data: res } = await this.$axios.post(
-          'login.php',
+          'https://api.jakting.com/v1/news/netease/conn/login.php',
           this.$qs.stringify(this.loginForm)
         )
         console.log(res)

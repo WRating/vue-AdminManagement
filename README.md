@@ -1,19 +1,13 @@
 # adminmanagement
 
-## Project setup
-```
-npm install
-```
+问题：
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+用户管理页面：
 
-### Compiles and minifies for production
-```
-npm run build
-```
+1. 添加用户接口有问题
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+商品列表页面
+
+1. 商品列表页面添加商品接口有问题
+2. 商品展示的列表不是按顺序来的
+3. 

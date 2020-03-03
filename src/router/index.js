@@ -4,6 +4,7 @@ import login from '../components/login.vue'
 import home from '../components/home.vue'
 import welcome from '../components/welcome.vue'
 import users from '../components/user/users.vue'
+import goods from '../components/goods/list.vue'
 
 Vue.use(VueRouter)
 
@@ -28,15 +29,8 @@ const router = new VueRouter({
           component: users
         },
         {
-          path: '/1',
-          component: users
-        },
-        {
-          path: '/2',
-          component: users
-        },{
-          path: '/3',
-          component: users
+          path: '/list',
+          component: goods
         }
       ]
     }

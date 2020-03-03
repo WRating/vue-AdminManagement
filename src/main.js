@@ -14,7 +14,7 @@ Vue.prototype.$qs = qs
 Vue.config.productionTip = false
 // axios.defaults.baseURL = 'https://api.jakting.com/v1/news/netease/conn/'//这里写登录数据提交的API根路径
 
-axios.defaults.baseURL = 'https://lipiao.top/restaurantApi'//这里写登录数据提交的API根路径
+// axios.defaults.baseURL = 'https://lipiao.top/restaurantApi'//这里写登录数据提交的API根路径
 
 // 挂载之前为axios设立拦截器
 // axios.interceptors.request.use(config => {
@@ -24,6 +24,7 @@ axios.defaults.baseURL = 'https://lipiao.top/restaurantApi'//这里写登录数�
 //   //在最后必须return config
 //   return config
 // })
+
 
 new Vue({
   router,

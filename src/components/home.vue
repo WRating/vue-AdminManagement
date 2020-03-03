@@ -76,24 +76,7 @@ export default {
         },
         {
           id: 2,
-          name: '权限管理',
-          children: [
-            {
-              id: 1,
-              name: '1',
-              path: '1'
-            },
-            {
-              id: 2,
-              name: '2',
-              path: '2'
-            },
-            {
-              id: 3,
-              name: '3',
-              path: '3'
-            }
-          ]
+          name: '权限管理'
         },
         {
           id: 3,
@@ -101,54 +84,19 @@ export default {
           children: [
             {
               id: 1,
-              name: '1'
-            },
-            {
-              id: 2,
-              name: '2'
-            },
-            {
-              id: 3,
-              name: '3'
+              name: '商品列表',
+              path: 'list'
             }
           ]
         },
-        {
-          id: 4,
-          name: '订单管理',
-          children: [
-            {
-              id: 1,
-              name: '1'
-            },
-            {
-              id: 2,
-              name: '2'
-            },
-            {
-              id: 3,
-              name: '3'
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: '数据统计',
-          children: [
-            {
-              id: 1,
-              name: '1'
-            },
-            {
-              id: 2,
-              name: '2'
-            },
-            {
-              id: 3,
-              name: '3'
-            }
-          ]
-        }
+        // {
+        //   id: 4,
+        //   name: '订单管理'
+        // },
+        // {
+        //   id: 5,
+        //   name: '数据统计'
+        // }
       ],
       //是否折叠
       isCollapse: false
