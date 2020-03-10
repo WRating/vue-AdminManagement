@@ -89,21 +89,30 @@
         @close="editDialogClosed"
       >
         <!-- 内容主体区 -->
-        <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
-          <el-form-item label="用户id">
+        <el-form :model="editForm" ref="editFormRef" label-width="70px">
+          <el-form-item label="商品ID">
             <el-input v-model="editForm.id" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="用户名" prop="name">
+          <el-form-item label="商品名称" >
             <el-input v-model="editForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="图片" prop="pictureFileURL">
-            <el-input v-model="editForm.pictureFileURL"></el-input>
+          <el-form-item label="商品价格">
+            <el-input v-model="editForm.prices"></el-input>
+          </el-form-item>
+          <el-form-item label="商品图片">
+            <el-input v-model="editForm.pictureFileURL" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="商品描述">
+            <el-input v-model="editForm.description"></el-input>
+          </el-form-item>
+          <el-form-item label="商品类型">
+            <el-input v-model="editForm.type"></el-input>
           </el-form-item>
         </el-form>
 
         <span slot="footer" class="dialog-footer">
           <el-button @click="editDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="editUserInfo">确 定</el-button>
+          <el-button type="primary" @click="editFoodInfo">确 定</el-button>
         </span>
       </el-dialog>
 
@@ -132,9 +141,9 @@ export default {
       currentPage: 1,
       //当前页面显示条数
       pagesize: 10,
-      //控制添加用户对话框的显示与隐藏
+      //控制添加商品对话框的显示与隐藏
       dialogVisible: false,
-      //添加用户的表单数据
+      //添加商品的表单数据
       addForm: {
         id: '',
         name: '',
@@ -150,20 +159,23 @@ export default {
       editForm: {
         id: '',
         name: '',
-        pictureFileURL: ''
+        prices: '',
+        description: '',
+        pictureFileURL: '',
+        type: ''
       },
-      editFormRules: {
-        //验证密码是否合法
-        name: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-        ],
-        //验证密码是否合法
-        pictureFileURL: [
-          { required: true, message: '请输入图片地址', trigger: 'blur' },
-          { min: 3, max: 50, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-        ]
-      }
+      // editFormRules: {
+      //   //验证密码是否合法
+      //   name: [
+      //     { required: true, message: '请输入用户名', trigger: 'blur' },
+      //     { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+      //   ],
+      //   //验证密码是否合法
+      //   pictureFileURL: [
+      //     { required: true, message: '请输入图片地址', trigger: 'blur' },
+      //     { min: 3, max: 50, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+      //   ]
+      // }
     }
   },
   created() {
@@ -218,21 +230,21 @@ export default {
     editDialogClosed() {
       this.$refs.editFormRef.resetFields()
     },
-    //修改用户信息并提交
-    editUserInfo() {
-      console.log('无修改用户信息接口')
-      // this.$refs.editFormRef.validate(async valid => {
-      //   console.log(valid)
-      //   if (!valid) return //验证不通过，直接阻止这次请求
-      //   const { data: res } = await this.$axios.post(
-      //     'user/addUser',
-      //     this.$qs.stringify(this.eidtForm)
-      //   )
-      //   console.log(res)
-      //   this.editDialogVisible = false
-      //   //重新获取用户列表数据
-      //   this.getUserList()
-      // })
+    //修改商品信息并提交
+    editFoodInfo() {
+      // console.log('无修改商品信息接口')
+      this.$refs.editFormRef.validate(async valid => {
+        console.log(valid)
+        if (!valid) return //验证不通过，直接阻止这次请求
+        const { data: res } = await this.$axios.post(
+          'https://lipiao.top/restaurantApi/admin/updateFood',
+          this.$qs.stringify(this.editForm)
+        )
+        console.log(res)
+        this.editDialogVisible = false
+        //重新获取用户列表数据
+        this.getUserList()
+      })
     },
     //删除该条商品信息
     async removeById(id) {
@@ -252,7 +264,7 @@ export default {
       // 如果用户想删除，调用删除接口
       //   const { data: res } = await this.$axios.post(
       //     'https://lipiao.top/restaurantApi/user/addUser',
-      //     this.$qs.stringify(this.eidtForm)
+      //     this.$qs.stringify(this.editForm)
       //   )
       //   console.log(res)
       // if (res.Result !== '查询菜品信息成功') {

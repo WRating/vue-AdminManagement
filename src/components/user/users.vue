@@ -72,7 +72,7 @@
           <el-form-item label="用户名" prop="name">
             <el-input v-model="editForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="图片" prop="pictureFileURL">
+          <el-form-item label="图片">
             <el-input v-model="editForm.pictureFileURL"></el-input>
           </el-form-item>
         </el-form>
@@ -142,10 +142,10 @@ export default {
           { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
         ],
         //验证密码是否合法
-        pictureFileURL: [
-          { required: true, message: '请输入图片地址', trigger: 'blur' },
-          { min: 3, max: 50, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-        ]
+        // pictureFileURL: [
+        //   { required: true, message: '请输入图片地址', trigger: 'blur' },
+        //   { min: 3, max: 50, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+        // ]
       }
     }
   },
@@ -159,6 +159,7 @@ export default {
       if (res.Result !== '查询所有用户信息成功') {
         return this.$message.error('获取用户列表失败!')
       }
+      this.$message.success('获取用户列表成功!')
       //把服务器传来的用户数据赋值给useList
       this.userList = res.UserList
     },
@@ -202,19 +203,24 @@ export default {
     },
     //修改用户信息并提交
     editUserInfo(){
-      console.log("无修改用户信息接口")
-      // this.$refs.editFormRef.validate(async valid => {
-      //   console.log(valid)
-      //   if (!valid) return //验证不通过，直接阻止这次请求
-      //   const { data: res } = await this.$axios.post(
-      //     'https://lipiao.top/restaurantApi/user/addUser',
-      //     this.$qs.stringify(this.eidtForm)
-      //   )
-      //   console.log(res)
-      //   this.editDialogVisible = false
-      //   //重新获取用户列表数据
-      //   this.getUserList()
-      // })
+      // console.log("无修改用户信息接口")
+      this.$refs.editFormRef.validate(async valid => {
+        console.log(valid)
+        if (!valid) return //验证不通过，直接阻止这次请求
+        const { data: res } = await this.$axios.post(
+          'https://lipiao.top/restaurantApi/user/updateUser',
+          this.$qs.stringify(this.editForm)
+        )
+        console.log(res)
+        if (res.Result !== '更新用户信息成功') {
+        return this.$message.error('修改用户信息失败!')
+      }
+        this.$message.success('修改用户信息成功!')
+        
+        this.editDialogVisible = false
+        //重新获取用户列表数据
+        this.getUserList()
+      })
 
     }
   }
